@@ -1,0 +1,262 @@
+<div style="margin : 10px;padding-bottom: 10px;">
+  <div class="table-responsive">
+  
+  <!--<ag-grid-angular #agGrid style="width: 100; height: 200px;"  class="ag-theme-blue"
+        [gridOptions]="gridOptions"
+        enableColResize
+        enableFilter
+        enableSorting
+        [pagination]="true"
+        [paginationPageSize]="2"
+        [suppressClickEdit]="true"
+        [components]="components"
+        rowSelection="single"
+        
+        (rowClicked)="onRowClicked($event)" >
+</ag-grid-angular>-->
+
+<p-dataTable [value]="homeworkDetailList"  id="homeworkDataTable" [paginator] = "true" [rows]="3" >
+    <p-column field="col1" header="col1" sortable="true" filter="true" ></p-column>
+    <p-column field="col2" header="col2" sortable="true" filter="true"></p-column>
+    <p-column field="col3" header="col3" sortable="true" filter="true"></p-column>
+    <p-column field="col4" header="col4" sortable="true" filter="true"></p-column>
+    <p-column field="col5" header="col5" dateFormat="dd-mm-yy" sortable="true" filter="true"></p-column>
+    
+    <p-column field="col6" header="Actions" >
+    <ng-template  let-row="rowData" pTemplate="body">
+      <div>
+          <span id='theValue' style='padding-left: 30%;'></span>
+        <button type="button" class="inline_action"  pButton data-action-type='edit' 
+        (click)="editHomeworkRecord($event,row)" icon="fa-edit"></button>
+    
+        <button type="button" pButton data-action-type='delete' (click)="deleteHomeworRecord($event,row)" icon="fa fa-trash-o"></button>
+      </div>
+      </ng-template>
+</p-column>
+
+</p-dataTable>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+</div>
+  </div>
+
+
+
+<div style="border: 2px solid #ccc;margin : 10px;padding-bottom: 10px;">
+  <div style=" background-color: #274482;padding: 2px 2px 2px 15px;color: white">
+    Homework
+  </div>
+  <div class="container">
+
+      <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0">
+          <ul>
+              <li *ngFor="let error of errors">
+                  {{ error }}
+              </li>
+          </ul>
+      </div>
+
+   <!-- <form novalidate (ngSubmit)="onSubmit()">-->
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-4">
+          <div class="form-group" >
+    
+            <label for="type">Homework Type
+              <span style="color:red">*</span>
+            </label>
+        
+          <div>
+            <p-dropdown [options]="homeworkTypes"  [(ngModel)]="selectedHomeworkType"  optionLabel="code"></p-dropdown>
+          </div>
+          </div>
+
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="executionDate">Home Date
+              <span style="color:red">*</span>
+            </label>
+            <div>
+            <p-calendar [(ngModel)]="homeDateEdit" id="homeDateEdit" name="homeDateEdit" [ngModelOptions]="{timezone:'UTC/GMT'}" dateFormat="dd-mm-yy" showButtonBar="true" ></p-calendar>
+            </div>
+            </div>
+          <!-- <div class="form-group">
+            <label for="clauseDeviations">Home 2
+              </label>
+            <textarea pInputTextarea [(ngModel)]="clauseDeviations" id="clauseDeviations" [rows]="3" [cols]="37" name="clauseDeviations" autoResize="autoResize"></textarea>
+          </div> -->
+
+          <div class="form-group">
+            <label for="clauseDeviations">Home 2
+              </label>
+              <input id="float-input" type="number" min="0"  pInputText> 
+
+              <input pInputText type="number" min="0" 
+               class="form-control" oninput="validity.valid||(value='');" 
+               valid-number placeholder="" allow-decimal="false" allow-negative="false" >
+
+              Directive
+              <!-- <input myNumberOnly  type="text" [(ngModel)]="minVal" placeholder="Enter Value" > -->
+
+              <input myNumberOnly name="min" placeholder="Enter Value" [(ngModel)]="minVal">
+
+              <h1 myHidden>Hidden Welcome</h1>
+
+          </div>
+          
+
+
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <p-button label="Clear" (onClick)="clearHomeworkEdit()"></p-button>
+        </div>
+
+        <div class="col-md-3">
+    
+    <p-dialog header="Homework Record" [(visible)]="saveDialog">
+    Saved Successfully
+    </p-dialog>
+
+         <p-button label="Save" (onClick)="saveHomework()"></p-button>
+          <p-button label="Cancel" ></p-button>
+        </div>
+      </div>
+    <!--</form>-->
+  </div>
+</div>
+
+<!--<my-app-table> Loading ag-Grid </my-app-table> -->
+
+
+<div style="border: 2px solid #ccc;margin : 10px;padding-bottom: 10px;">
+  <div style=" background-color: #274482;padding: 2px 2px 2px 15px;color: white">
+    Homework
+  </div>
+  <div class="container">
+   <form [formGroup]="tempform">
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-4">
+          
+          <div class="form-group">
+            <label for="location">Homework Location
+              <span style="color:red">*</span>
+            </label>
+            <div>
+              
+              <p-dropdown [options]="homeworkLocations" 
+              formControlName="tempselectedHomeworkLocationForm"  optionLabel="code"></p-dropdown>
+            </div>
+          </div>
+
+
+                        
+           
+
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+          
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <p-button label="Clear" (onClick)="clearHomeworkEdit()"></p-button>
+        </div>
+
+        <div class="col-md-3">
+    
+    <p-dialog header="Homework Record" [(visible)]="saveDialog">
+    Saved Successfully
+    </p-dialog>
+    
+    <button type="submit">Submit</button>
+         <p-button label="Save" (onClick)="saveHomework()"></p-button>
+          <p-button label="Cancel" ></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<div> Naik Slider</div>
+
+<div class="row" style="margin-top: 10px;margin-left: 10px;margin-bottom: 30px ;margin-right: 10px">
+        <div class="col-md-4">
+<p-slider [(ngModel)]="val"  [min]="0" [max]="100" ></p-slider>
+
+</div>
+<div class="col-md-4">
+<p-slider [(ngModel)]="rangeValues"  [step]="10" [range]="true" ></p-slider>
+</div>
+
+<div class="col-md-4">
+  
+  
+  <ion-range-slider #sliderElement
+          type="double"
+          min="0"
+          max="100"
+          from="0"
+          from_shadow="true"
+          to="10"
+          to_shadow="true"
+          grid="true"
+          grid_num="10"
+          prefix="Tenure : "
+          postfix=" days"
+          decorate_both="true"
+          (onStart)="onstarSliderStart(sliderElement, $event)"
+          ></ion-range-slider>
+<!--(onUpdate)="update(sliderElement, $event)"
+          (onChange)="update(sliderElement, $event)"
+          (onFinish)="finish(sliderElement, $event)"
+          -->
+
+
+          <p-button label="Change ION Slider" (onClick)="setAdvancedSliderTo(30,40)"></p-button>     
+
+
+  </div>
+
+</div>
+
+<div class="row" style="margin-top: 10px;margin-left: 10px;margin-bottom: 30px ;margin-right: 10px">
+  <div class="col-md-4">
+    Kunal nouislider
+      <!-- <nouislider [connect]="true"  [min]="0" [max]="100" [step]="10"  
+        [(ngModel)]="someRange2"></nouislider> -->
+      <nouislider [config]="someRange2config"  [(ngModel)]="someRange2"></nouislider>
+      
+
+  </div>
+  <div class="col-md-4">
+  <p-button label="Slider" (onClick)="sliderButton($event)"></p-button>
+  </div>
+  </div>
+
+
+  <p-tabView>
+    <p-tabPanel header="Header 1" [selected]="true">
+       <app-angu4> </app-angu4>
+    </p-tabPanel>
+    <p-tabPanel header="Header 2" >
+        <app-test-directive [homeworkTypes]="homeworkTypes"
+        ></app-test-directive>
+    </p-tabPanel>
+    <p-tabPanel header="Header 3">
+        Content 3    
+    </p-tabPanel>
+</p-tabView>
+

@@ -1,0 +1,50 @@
+Hi angular 4 here 
+
+<br>
+If else condition Example : <br>
+<span *ngIf="cond1 ; else cond2"> cond1 true</span>
+<ng-template #cond2> cond2 true </ng-template>
+
+<br>
+Example Pipe Title Case <br>
+<div>
+    <h2>{{ 'Angular 4 titlecase' | titlecase }}</h2>
+ </div>
+
+ <br>
+ Example Directive : <br>
+ <span changeText >Welcome to {{title}}.</span>
+
+<br>
+<h1>Uppercase Pipe</h1>
+      
+      <h1>Currency Pipe</h1>
+      <b>{{6589.23 | currency:"USD"}}</b><br/>
+      <b>{{6589.23 | currency:"USD":true}}</b> //Boolean true is used to get the sign of the currency.
+      
+      <h1>Date pipe</h1>
+      <b>{{todaydate | date:'d/M/y'}}</b><br/>
+      <b>{{todaydate | date:'shortTime'}}</b>
+      
+      <h1>Decimal Pipe</h1>
+      <b>{{ 454.78787814 | number: '3.4-4' }}</b> 
+      // 3 is for main integer, 4 -4 are for integers to be displayed.
+   
+   
+      <h1>Json Pipe</h1>
+      <b>{{ jsonval | json }}</b>
+      <h1>Percent Pipe</h1>
+      <b>{{00.54565 | percent}}</b>
+      <h1>Slice Pipe</h1>
+      <b>{{months | slice:2:6}}</b> 
+      // here 2 and 6 refers to the start and the end index
+
+      Custom Pipe eaxample : <br>
+      <h1>Custom Pipe</h1>
+<b>Square root of 25 is: {{25 | sqrt}}</b>
+<br/>
+<b>Square root of 729 is: {{729 | sqrt}}</b>
+
+
+   
+ 

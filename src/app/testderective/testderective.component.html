@@ -1,0 +1,81 @@
+<div>
+
+Internal div {{ name }}
+<div>
+<p-pickList sourceHeader="Source List" targetHeader="Target List" [source]="picklist1" [target]="picklist2"
+ [responsive]="true" dragdrop="true" showSourceControls ="true" showTargetControls="true">
+
+    <ng-template let-car pTemplate="picklist1">
+        <div class="ui-helper-clearfix">
+            {{car}} - 2
+        </div>
+    </ng-template>
+
+</p-pickList>
+
+
+
+<p-button label="picklist" (onClick)="updatePicklist($event)"></p-button>
+
+<fa name="cog" animation="spin"></fa>
+
+<div>
+Tree 1
+
+<p-tree [value]="dataTree" selectionMode="single"  [(selection)]="selectedFileTree" selectionMode="checkbox"
+(onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" (onNodeExpand)="nodeExpand($event)" 
+[style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
+</div>
+
+<div>
+Tree 2
+
+<p-tree [value]="dataTreeRight" [style]="{'max-height':'200px','overflow':'auto'}"></p-tree>
+
+
+</div>
+
+</div>
+
+
+<div>
+
+<form (ngSubmit)="onSubmitUploadFiles()"  >
+    
+AWS File Upload
+
+<label class="btn btn-default">
+    <input type="file" (change)="selectFile($event)">
+  </label>
+   
+  <button class="btn btn-success"  (click)="upload()">Upload</button> <!-- [disabled]="!selectedFilesold" -->
+
+  Listing  Files : 
+  
+  <button class="button btn-info" *ngIf='showFile'
+  (click)='showFiles(false)'>Hide Files</button>
+
+<button class="button btn-info" *ngIf='!showFile'
+  (click)='showFiles(true)'>Show Files</button>
+
+<div [hidden]="!showFile">
+  <div class="panel panel-primary">
+      <div class="panel-heading">List of Files</div>
+      <div *ngFor="let file of fileUploads | async">
+          <div class="panel-body">
+            <a href="{{file.url}}">{{file.name}}</a>
+            <button (click)='delete(file)' class="btn btn-danger btn-xs" style="float: right">Delete</button>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<button class="btn btn-success" type="submit">Save Files</button>
+
+</form>
+
+</div>
+
+
+<p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="selectFileMultiple($event)" multiple="multiple"></p-fileUpload>
