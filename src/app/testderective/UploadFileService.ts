@@ -76,54 +76,6 @@ uploadFile(fileModel : TempModel) : Observable<HttpEvent<{}>>  {
  * To be uncomment to check Amazon s3 web service
  * uploadfile(file){
 
-const bucket = new S3(
-    {
-        accessKeyId: 'AKIAIVCOGAFOX276QPFA',
-        secretAccessKey: '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',
-        region: 'us-east-1'
-    });
-
-    const param = {
-            Bucket : 'jsa-angular4-bucket-kmn',
-            Key : this.FOLDER + file.name,
-            Body: file
-        };
-
-bucket.upload(param, function(err ,data){
-
-    if (err) {
-        console.log('There was an error uploading your file: ', err);
-        return false;
-      }
-
-    console.log('Successfully uploaded file.', data);
-      return true;
-
-});
-
-}
-*/
-//upload file ends
-
-
-/**
- * Get list of files
- */
-/**
- * To be uncomment to check Amazon s3 web service
-private getS3Bucket(): any {
-    const bucket = new S3(
-      {
-        accessKeyId: 'AKIAIVCOGAFOX276QPFA',
-        secretAccessKey: '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',
-        region: 'us-east-1'
-      }
-    );
- 
-    return bucket;
-  }
- 
-
 getlistOfFiles(){
 
     const fileUploads = new Array<FileUpload>();
