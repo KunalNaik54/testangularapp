@@ -46,7 +46,7 @@
     "grunt-war": "^0.5.1",
     "hammerjs": "^2.0.8",
     "html2canvas": "1.0.0-rc.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "md-dialog": "0.0.1-alpha.1",
     "ng2-cache": "^0.1.12",
     "ng2-ion-range-slider": "^2.0.0",
