@@ -33,7 +33,7 @@
     "angular-screenshot": "^0.4.1",
     "angular2-jwt": "^0.2.3",
     "angular2-jwt-session": "^0.1.2",
-    "aws-sdk": "^2.229.1",
+    "aws-sdk": "^2.814.0",
     "bootstrap": "^4.0.0",
     "buffer": "^5.1.0",
     "classlist.js": "^1.1.20150312",
